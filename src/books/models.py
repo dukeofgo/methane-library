@@ -6,7 +6,7 @@ from .. users.models import User
 class Book(Base):
     __tablename__ = "book"
 
-    id: Mapped[int] = mapped_column(primary_key=True)
+    id: Mapped[int] = mapped_column(primary_key=True, unique=True)
     title: Mapped[str] = mapped_column(String(64))
     author: Mapped[str] = mapped_column(String(64))
     edition: Mapped[str] = mapped_column(String(64), nullable=True)

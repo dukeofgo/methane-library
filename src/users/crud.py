@@ -45,3 +45,5 @@ def delete_user(user_id: int, db: Session):
 
     db.delete(db_user)
     db.commit()
+
+    return {"message": "User deleted successfully"}
