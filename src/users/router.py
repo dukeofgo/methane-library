@@ -32,5 +32,5 @@ def update_user(user: schemas.UserUpdate, user_id: int, db: Session = Depends(ge
 def delete_user(user_id: int, db: Session = Depends(get_db)):
     db_user = crud.get_user_by_id(user_id=user_id, db=db)
     if not db_user:
-        HTTPException(status_code=400, detail="targeted user does not exist")
+        HTTPException(status_code=400, detail="Target user does not exist")
     return crud.delete_user(user_id=user_id, db=db)

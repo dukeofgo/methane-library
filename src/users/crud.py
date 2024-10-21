@@ -4,10 +4,10 @@ from . import schemas, models
 from passlib.context import CryptContext
 import os
 
-def get_user_by_id(user_id: int, db: Session):
+def get_user_by_id(db: Session, user_id: int):
     return db.execute(select(models.User).where(models.User.id == user_id)).first()
 
-def get_user_by_email(email: str, db: Session):
+def get_user_by_email(db: Session, email: str):
     return db.execute(select(models.User).where(models.User.email == email)).first()
 
 def create_user(user: schemas.UserCreate, db: Session):
@@ -25,7 +25,7 @@ def create_user(user: schemas.UserCreate, db: Session):
 
     return db_user
 
-def update_user(user: schemas.UserUpdate, user_id: int, db: Session):
+def update_user(db: Session, user: schemas.UserUpdate, user_id: int):
     #query user with user id
     query_user = get_user_by_id(user_id=user_id, db=db)
     #turn user (pydantic model) into python dict
@@ -40,7 +40,7 @@ def update_user(user: schemas.UserUpdate, user_id: int, db: Session):
 
     return query_user
 
-def delete_user(user_id: int, db: Session):
+def delete_user(db: Session, user_id: int):
     db_user = get_user_by_id(user_id=user_id, db=db)
 
     db.delete(db_user)
