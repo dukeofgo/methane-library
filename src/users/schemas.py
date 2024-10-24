@@ -1,5 +1,8 @@
-from pydantic import BaseModel
+
 from datetime import date
+
+from pydantic import BaseModel
+
 
 class UserBase(BaseModel):
     email: str
@@ -22,3 +25,7 @@ class UserCreate(UserBase):
 
 class UserUpdate(UserCreate):
     pass
+
+class JWTTokenData(BaseModel):
+    email: str
+    scope: list[str] 
