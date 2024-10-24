@@ -25,5 +25,5 @@ async def login_for_access_token(form_data: Annotated[OAuth2PasswordRequestForm,
         payload = {"email": form_data.username, "scope": user.status},
         expires_delta = access_token_expire_duration
     )
-
+    #return pydantic instance of access token and token_tpye
     return schemas.Token(access_token=access_token, token_type="bearer")
