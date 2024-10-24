@@ -1,8 +1,9 @@
 from sqlalchemy import select
 from sqlalchemy.orm import Session
-from . import schemas, models
-from passlib.context import CryptContext
-import os
+
+from ..auth import service
+from . import models, schemas
+
 
 def get_user_by_id(db: Session, user_id: int):
     return db.execute(select(models.User).where(models.User.id == user_id)).first()
@@ -11,11 +12,8 @@ def get_user_by_email(db: Session, email: str):
     return db.execute(select(models.User).where(models.User.email == email)).first()
 
 def create_user(user: schemas.UserCreate, db: Session):
-    #retrieve ALGORITHM from env
-    ALGORITHM = os.environ.get("ALGORITHM")
     #hash password with passlib
-    hash_context = CryptContext(schemes=[ALGORITHM])
-    user_hashed_password = hash_context.hash(user.password)
+    user_hashed_password = service.hash_password(user.password)
     #instantiate User model
     db_user = models.User(email=user.email, name=user.name, age=user.age, hashed_password=user_hashed_password)
 

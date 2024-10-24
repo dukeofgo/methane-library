@@ -2,7 +2,6 @@ from sqlalchemy import select, or_
 from sqlalchemy.orm import Session
 from . import schemas, models
 from passlib.context import CryptContext
-import os
 
 def get_book_by_id(db: Session, book_id: int):
     return db.execute(select(models.Book).where(models.Book.id == book_id)).first()

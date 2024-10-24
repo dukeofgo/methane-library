@@ -1,7 +1,7 @@
 from sqlalchemy import Boolean, Date, ForeignKey, String
 from sqlalchemy.orm import relationship, Mapped, mapped_column
 from .. database import Base
-from .. users.models import User
+from .. users import models
 
 class Book(Base):
     __tablename__ = "book"
@@ -22,7 +22,7 @@ class Book(Base):
     subjects: Mapped[str] = mapped_column(String(256), nullable=True)
 
     user_id: Mapped[int] = mapped_column(ForeignKey("user_table.id"))
-    loan_to_user: Mapped["User"] = relationship(back_populates="borrowed_books")
+    loan_to_user: Mapped[models.User] = relationship(back_populates="borrowed_books")
 
     added_date: Mapped[Date] = mapped_column(default=Date.today)
     borrowed_date: Mapped[Date] = mapped_column(nullable=True)
