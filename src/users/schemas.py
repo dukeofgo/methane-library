@@ -1,5 +1,5 @@
 
-from datetime import date
+from datetime import date, datetime
 
 from pydantic import BaseModel
 
@@ -28,4 +28,5 @@ class UserUpdate(UserCreate):
 
 class JWTTokenData(BaseModel):
     email: str
-    scope: list[str] 
+    scopes: list[str] 
+    expire_date: datetime
